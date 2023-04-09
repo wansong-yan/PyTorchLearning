@@ -4,42 +4,55 @@
 # @PRO_NAME: PyTorchLearning
 # @File    : linear_regression.py
 # @Software: PyCharm 
-# @Comment : 
+# @Comment : 手动完成线性回归
 
 import torch
-import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import pyplot as plt
 
-#1.准备数据
-#y=3x+0.8
-x=torch.rand(500,1)
-y_true=x*0.3+0.8
+# 1. 准备数据 y = 3x+0.8，准备参数
+x = torch.rand([50])
+y = 3 * x + 0.8
 
-#2.通过模型计算y_predict
-w=torch.rand(1,requires_grad=True)
-b=torch.tensor(0,requires_grad=True,dtype=torch.float32)
+w = torch.rand(1, requires_grad=True)
+b = torch.rand(1, requires_grad=True)
 
-#4.通过循环，反向传播，更新参数
-learning_rate=1e-3
-for i in range(3000):
-    #3.计算loss
-    y_predict=torch.matmul(x,w)+b
-    loss=(y_true-y_predict).pow(2).mean()
 
-    #每次循环前判断梯度是否为0,如果不为0，则置为0
-    if w.grad is not None:
-        w.grad.data.zero_()
-    if b.grad is not None:
-        b.grad.data.zero_()
-
-    #反向传播
+def loss_fn(y, y_predict):
+    loss = (y_predict - y).pow(2).mean()
+    for i in [w, b]:
+        # 每次反向传播前把梯度置为0
+        if i.grad is not None:
+            i.grad.data.zero_()
+    # [i.grad.data.zero_() for i in [w,b] if i.grad is not None]
     loss.backward()
-    w.data=w.data-learning_rate*w.grad
-    b.data = b.data - learning_rate * b.grad
-    print("w,b,loss",w.item(),b.item(),loss.item())
+    return loss.data
 
-plt.figure()
-plt.scatter(x.numpy().reshape(-1),y_true.numpy().reshape(-1))
-y_predict = torch.matmul(x, w) + b
-plt.plot(x.numpy().reshape(-1), y_predict.detach().numpy().reshape(-1), c='r')
+
+def optimize(learning_rate):
+    # print(w.grad.data,w.data,b.data)
+    w.data -= learning_rate * w.grad.data
+    b.data -= learning_rate * b.grad.data
+
+
+for i in range(3000):
+    # 2. 计算预测值
+    y_predict = x * w + b
+
+    # 3.计算损失，把参数的梯度置为0，进行反向传播
+    loss = loss_fn(y, y_predict)
+
+    if i % 500 == 0:
+        print(i, loss)
+    # 4. 更新参数w和b
+    optimize(0.01)
+
+# 绘制图形，观察训练结束的预测值和真实值
+predict = x * w + b  # 使用训练后的w和b计算预测值
+
+plt.scatter(x.data.numpy(), y.data.numpy(), c="r")
+plt.plot(x.data.numpy(), predict.data.numpy())
 plt.show()
 
+print("w", w)
+print("b", b)
