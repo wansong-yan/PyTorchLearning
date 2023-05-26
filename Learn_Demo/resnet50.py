@@ -18,6 +18,7 @@ import torch
 import collections
 from torchinfo import summary
 from torch.utils.tensorboard import SummaryWriter
+from torchvision import datasets
 
 # nn.Sequential里面的模块按照顺序进行排列的，所以必须确保前一个模块的输出大小和下一个模块的输入大小是一致的。
 # nn.Sequential中可以使用OrderedDict来指定每个module的名字。
@@ -162,8 +163,6 @@ max_epochs = 2
 
 # 数据读取
 #cifar10数据集为例给出构建Dataset类的方式
-from torchvision import datasets
-
 #“data_transform”可以对图像进行一定的变换，如翻转、裁剪、归一化等操作，可自己定义
 data_transform=transforms.Compose([
                        transforms.ToTensor(),
