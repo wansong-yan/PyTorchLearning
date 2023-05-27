@@ -22,11 +22,11 @@ from torchvision.transforms import transforms
 from torchvision import datasets
 
 # 以函数方式定义 or 以类方式定义
-# 虽然以函数定义的方式很简单，但是以类方式定义更加常用，
-# 在以类方式定义损失函数时，如果看每一个损失函数的继承关系我们就可以发现Loss函数部分继承自_loss, 部分继承自_WeightedLoss,
-# 而_WeightedLoss继承自_loss， _loss继承自 nn.Module。
-# 我们可以将其当作神经网络的一层来对待，
-# 同样地，我们的损失函数类就需要继承自nn.Module类，
+# 虽然以函数定义的方式很简单，但是以类方式定义更加常用
+# 在以类方式定义损失函数时，如果看每一个损失函数的继承关系我们就可以发现Loss函数部分继承自_loss, 部分继承自_WeightedLoss
+# 而_WeightedLoss继承自_loss， _loss继承自 nn.Module
+# 我们可以将其当作神经网络的一层来对待
+# 同样地，我们的损失函数类就需要继承自nn.Module类
 # DiceLoss 实现Vent医学影像分割模型的损失函数
 class DiceLoss(nn.Module):
 
