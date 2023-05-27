@@ -4,7 +4,9 @@
 # @PRO_NAME: PyTorchLearning
 # @File    : base.py
 # @Software: PyCharm 
-# @Comment : tensor是什么 tensor四则运算 tensor广播
+# @Comment : 基础入门
+
+# tensor是什么 tensor四则运算 tensor广播
 
 import torch
 import numpy as np
