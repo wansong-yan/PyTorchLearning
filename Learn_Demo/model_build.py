@@ -4,7 +4,7 @@
 # @PRO_NAME: PyTorchLearning
 # @File    : model_build.py
 # @Software: PyCharm 
-# @Comment :
+# @Comment : 模型构建
 
 import os
 import numpy as np
