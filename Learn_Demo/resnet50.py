@@ -20,7 +20,7 @@ from torchinfo import summary
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import datasets
 
-# nn.Sequential里面的模块按照顺序进行排列的，所以必须确保前一个模块的输出大小和下一个模块的输入大小是一致的。
+# nn.Sequential里面的模块按照顺序进行排列的，必须确保前一个模块的输出大小和下一个模块的输入大小是一致的。
 # nn.Sequential中可以使用OrderedDict来指定每个module的名字。
 net = nn.Sequential(nn.Linear(784, 256),
                     nn.ReLU(),
