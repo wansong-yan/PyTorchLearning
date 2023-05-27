@@ -4,7 +4,7 @@
 # @PRO_NAME: PyTorchLearning
 # @File    : dataLoader.py
 # @Software: PyCharm 
-# @Comment : 
+# @Comment : 数据读取
 
 #导入常用包
 import os
